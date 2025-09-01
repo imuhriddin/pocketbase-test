@@ -30,8 +30,7 @@ function Login() {
         })
       );
 
-      // 🔹 tokenni cookie/localStorage’da saqlash
-      document.cookie = pb.authStore.exportToCookie({ httpOnly: false });
+       localStorage.setItem("token", authData.token);
 
       // 🔹 login bo‘lgandan keyin '/' ga o‘tadi
       navigate("/");

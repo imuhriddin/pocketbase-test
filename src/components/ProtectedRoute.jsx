@@ -1,13 +1,10 @@
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
-import { selectCurrentToken } from "../features/auth/authSlice";
 
 
 const ProtectedRoute = ({ children }) => {
-    const token = useSelector(selectCurrentToken);
+    const token = localStorage.getItem("token");
 
     if (!token) {
-        // Agar login qilmagan bo‘lsa → Login sahifasiga yo‘naltiramiz
         return <Navigate to="/login" replace />;
     }
 
