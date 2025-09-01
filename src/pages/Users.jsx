@@ -4,14 +4,10 @@ import { useGetUsersQuery } from '../services/usersApi'
 
 function Users() {
   const { data, error, isLoading } = useGetUsersQuery();
-  if (isLoading) {
-    <h1>Loading...</h1>
-  }
+  if (isLoading) return <h1>Loading...</h1>;
 
-  if (error) {
-    console.log("xatolik: ", error);
-    <h1>Xatolik</h1>
-  }
+  if (error) return <h1>Xatolik</h1>;
+  
   console.log("keldimi: ", data);
   return (
     <div className='px-4'>

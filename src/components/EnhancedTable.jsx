@@ -22,6 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import RowDetailDrawer from "./RowDetailDrawer";
+import { colors } from "@mui/material";
 
 function createData(
   id,
@@ -343,19 +344,44 @@ export default function EnhancedTable({ users }) {
                         }}
                       />
                     </TableCell>
-                    <TableCell component="th"
+                    <TableCell
+                      component="th"
                       id={labelId}
                       scope="row"
-                      padding="none" align="right">{row.id}</TableCell>
-                    <TableCell align="left">{row.email}</TableCell>
-                    <TableCell align="left">{row.emailVisibility ? "True" : "False"}</TableCell>
-                    <TableCell align="left">{row.verified ? "Ture" : "False"}</TableCell>
+                      padding="none"
+                      align="right"
+                    ><p onClick={() => {
+                      navigator.clipboard.writeText(row.id)
+                        .then(() => {
+                          alert(`ID ${row.id} copied!`);
+                        })
+                        .catch((err) => {
+                          console.error("Copy failed: ", err);
+                        });
+                    }} className="bg-gray-300 rounded-2xl px-2 py-1">{row.id}</p></TableCell>
+                    <TableCell align="left">
+                      <p>{row.email}</p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <p className="bg-gray-300 rounded-2xl px-2 py-1">{row.emailVisibility ? "True" : "False"}</p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <p className="bg-gray-300 rounded-2xl px-2 py-1">{row.verified ? "Ture" : "False"}</p>
+                    </TableCell>
                     <TableCell align="left">{row.name ? row.name : "N/A"}</TableCell>
-                    <TableCell align="left">{row.language ? row.language : "N/A"}</TableCell>
+                    <TableCell align="center">
+                      <p className="bg-gray-300 rounded-2xl px-2 py-1">{row.language ? row.language : "N/A"}</p>
+                    </TableCell>
                     <TableCell align="left">{row.phoneNumber ? row.phoneNumber : "N/A"}</TableCell>
-                    <TableCell align="left">{row.role ? row.role : "N/A"}</TableCell>
-                    <TableCell align="left">{row.isPaid ? "Ture" : "False"}</TableCell>
-                    <TableCell align="left">{row.isActive ? "Ture" : "False"}</TableCell>
+                    <TableCell align="center">
+                      <p className="bg-gray-300 rounded-2xl px-2 py-1">{row.role ? row.role : "N/A"}</p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <p className="bg-gray-300 rounded-2xl px-2 py-1">{row.isPaid ? "Ture" : "False"}</p>
+                    </TableCell>
+                    <TableCell align="center">
+                      <p className="bg-gray-300 rounded-2xl px-2 py-1">{row.isActive ? "Ture" : "False"}</p>
+                    </TableCell>
                     <TableCell align="left">{row.created}</TableCell>
                     <TableCell align="left">{row.updated}</TableCell>
                   </TableRow>
