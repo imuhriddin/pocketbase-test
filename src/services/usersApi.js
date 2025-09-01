@@ -19,7 +19,7 @@ export const usersApi = createApi({
   baseQuery: baseQuery,
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => "collections",
+      query: () => "collections/users/records",
     }),
     getUserById: builder.query({
       query: (id) => `collections/users/records/${id}`,

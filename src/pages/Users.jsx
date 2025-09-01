@@ -15,7 +15,7 @@ function Users() {
   console.log("keldimi: ", data);
   return (
     <div className='px-4'>
-      <EnhancedTable />
+      <EnhancedTable users={data} />
     </div>
   )
 }

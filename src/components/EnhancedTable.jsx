@@ -82,72 +82,18 @@ function getComparator(order, orderBy) {
 }
 
 const headCells = [
-  {
-    id: "name",
-    numeric: false,
-    disablePadding: true,
-    label: "Dessert (100g serving)",
-  },
-  {
-    id: "calories",
-    numeric: true,
-    disablePadding: false,
-    label: "Calories",
-  },
-  {
-    id: "fat",
-    numeric: true,
-    disablePadding: false,
-    label: "Fat (g)",
-  },
-  {
-    id: "carbs",
-    numeric: true,
-    disablePadding: false,
-    label: "Carbs (g)",
-  },
-  {
-    id: "protein",
-    numeric: true,
-    disablePadding: false,
-    label: "Protein (g)",
-  },
-  {
-    id: "birnima",
-    numeric: true,
-    disablePadding: false,
-    label: "Birnima(g)",
-  },
-  {
-    id: "Ikkinima",
-    numeric: true,
-    disablePadding: false,
-    label: "Ikkinima(g)",
-  },
-  {
-    id: "uchnima",
-    numeric: true,
-    disablePadding: false,
-    label: "uchnima(g)",
-  },
-  {
-    id: "turtnima",
-    numeric: true,
-    disablePadding: false,
-    label: "turtnima(g)",
-  },
-  {
-    id: "beshnima",
-    numeric: true,
-    disablePadding: false,
-    label: "beshnima(g)",
-  },
-  {
-    id: "oltinima",
-    numeric: true,
-    disablePadding: false,
-    label: "beshnima(g)",
-  },
+  { id: "id", label: "ID", numeric: true },
+  { id: "email", label: "Email", numeric: false },
+  { id: "emailVisibility", label: "Email Visible", numeric: false },
+  { id: "verified", label: "Verified", numeric: false },
+  { id: "name", label: "Name", numeric: false },
+  { id: "language", label: "Language", numeric: false },
+  { id: "phoneNumber", label: "Phone", numeric: false },
+  { id: "role", label: "Role", numeric: false },
+  { id: "isPaid", label: "Paid", numeric: false },
+  { id: "isActive", label: "Active", numeric: false },
+  { id: "created", label: "Created", numeric: false },
+  { id: "updated", label: "Updated", numeric: false },
 ];
 
 function EnhancedTableHead(props) {
@@ -270,7 +216,7 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function EnhancedTable({ users }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
@@ -279,6 +225,9 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
   const [selectedRow, setSelectedRow] = React.useState(null);
+
+
+  console.log("userlar:", users);
 
   const handleRowClick = (row) => {
     setSelectedRow(row);
@@ -293,7 +242,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.id);
+      const newSelected = (users?.items || []).map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -338,7 +287,7 @@ export default function EnhancedTable() {
 
   const visibleRows = React.useMemo(
     () =>
-      [...rows]
+      [...(users?.items || [])]
         .sort(getComparator(order, orderBy))
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [order, orderBy, page, rowsPerPage]
@@ -363,7 +312,7 @@ export default function EnhancedTable() {
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={users?.items.length || 0}
             />
             <TableBody>
               {visibleRows.map((row, index) => {
@@ -394,24 +343,21 @@ export default function EnhancedTable() {
                         }}
                       />
                     </TableCell>
-                    <TableCell
-                      component="th"
+                    <TableCell component="th"
                       id={labelId}
                       scope="row"
-                      padding="none"
-                    >
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
-                    <TableCell align="right">{row.birnima}</TableCell>
-                    <TableCell align="right">{row.ikkinima}</TableCell>
-                    <TableCell align="right">{row.uchnima}</TableCell>
-                    <TableCell align="right">{row.turtnima}</TableCell>
-                    <TableCell align="right">{row.beshnima}</TableCell>
-                    <TableCell align="right">{row.oltinima}</TableCell>
+                      padding="none" align="right">{row.id}</TableCell>
+                    <TableCell align="left">{row.email}</TableCell>
+                    <TableCell align="left">{row.emailVisibility ? "True" : "False"}</TableCell>
+                    <TableCell align="left">{row.verified ? "Ture" : "False"}</TableCell>
+                    <TableCell align="left">{row.name ? row.name : "N/A"}</TableCell>
+                    <TableCell align="left">{row.language ? row.language : "N/A"}</TableCell>
+                    <TableCell align="left">{row.phoneNumber ? row.phoneNumber : "N/A"}</TableCell>
+                    <TableCell align="left">{row.role ? row.role : "N/A"}</TableCell>
+                    <TableCell align="left">{row.isPaid ? "Ture" : "False"}</TableCell>
+                    <TableCell align="left">{row.isActive ? "Ture" : "False"}</TableCell>
+                    <TableCell align="left">{row.created}</TableCell>
+                    <TableCell align="left">{row.updated}</TableCell>
                   </TableRow>
                 );
               })}
