@@ -1,7 +1,20 @@
 
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import PocketBase from "pocketbase"
+import { useDispatch } from 'react-redux'
+import { logout } from '../features/auth/authSlice'
+
+const pb = new PocketBase("https://back.buyur.yurtal.tech")
 
 function Sidebar() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    dispatch(logout())       // Redux va localStorage tozalaydi
+    pb.authStore.clear()     // PocketBase auth store ni tozalaydi
+    navigate('/login')       // Login sahifasiga yo'naltiradi
+  }
   return (
     <div className=''>
       <div className="w-64 bg-white h-screen shadow-md">
@@ -56,7 +69,16 @@ function Sidebar() {
 
           </div>
         </nav>
+        <div className="w-32 p-4 border-t">
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center px-4 py-1 bg-red-400 text-white rounded-md hover:bg-red-600 justify-center"
+        >
+          Logout
+        </button>
       </div>
+      </div>
+      
     </div>
   )
 }
