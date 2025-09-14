@@ -382,8 +382,24 @@ export default function EnhancedTable({ users }) {
                     <TableCell align="center">
                       <p className="bg-gray-300 rounded-2xl px-2 py-1">{row.isActive ? "Ture" : "False"}</p>
                     </TableCell>
-                    <TableCell align="left">{row.created}</TableCell>
-                    <TableCell align="left">{row.updated}</TableCell>
+                    <TableCell align="left">
+                      {new Date(row.created).toLocaleString("uz-UZ", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </TableCell>
+                    <TableCell align="left">
+                      {new Date(row.updated).toLocaleString("uz-UZ", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </TableCell>
                   </TableRow>
                 );
               })}

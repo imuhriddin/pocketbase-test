@@ -67,6 +67,9 @@ function Login() {
         >
           Kirish
         </button>
+        <br /><br />
+        <p><i>email:</i> test.front@buyur.uz</p>
+        <p><i>password:</i> 6I0XJjjVMr3D2k8</p>
       </form>
     </div>
   );

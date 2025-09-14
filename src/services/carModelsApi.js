@@ -4,26 +4,24 @@ const baseQuery = fetchBaseQuery({
   baseUrl: "https://back.buyur.yurtal.tech/api/",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;
-
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
-
     return headers;
   },
 });
 
-export const usersApi = createApi({
-  reducerPath: "usersApi",
-  baseQuery: baseQuery,
+export const carModelsApi = createApi({
+  reducerPath: "carModelsApi",
+  baseQuery,
   endpoints: (builder) => ({
-    getUsers: builder.query({
-      query: () => "collections/users/records",
+    getCarModels: builder.query({
+      query: () => "collections/car_models/records",
     }),
-    getUserById: builder.query({
-      query: (id) => `collections/users/records/${id}`,
+    getCarModelsById: builder.query({
+      query: (id) => `collections/car_models/records/${id}`,
     }),
   }),
 });
 
-export const { useGetUsersQuery, useGetUsersByIdQuery } = usersApi;
+export const { useGetCarModelsQuery, useGetCarModelsByIdQuery } = carModelsApi;

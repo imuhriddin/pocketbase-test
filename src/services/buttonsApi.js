@@ -4,7 +4,6 @@ const baseQuery = fetchBaseQuery({
   baseUrl: "https://back.buyur.yurtal.tech/api/",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;
-
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
@@ -13,17 +12,17 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-export const usersApi = createApi({
-  reducerPath: "usersApi",
-  baseQuery: baseQuery,
+export const buttonsApi = createApi({
+  reducerPath: "buttonsApi",
+  baseQuery,
   endpoints: (builder) => ({
-    getUsers: builder.query({
-      query: () => "collections/users/records",
+    getButtons: builder.query({
+      query: () => "collections/buttons/records",
     }),
-    getUserById: builder.query({
-      query: (id) => `collections/users/records/${id}`,
+    getButtonById: builder.query({
+      query: (id) => `collections/buttons/records/${id}`,
     }),
   }),
 });
 
-export const { useGetUsersQuery, useGetUsersByIdQuery } = usersApi;
+export const { useGetButtonsQuery } = buttonsApi;
